@@ -12,7 +12,7 @@ class Games(models.Model):
         ("win", "win"),
     ]
 
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     type = models.CharField(choices=TYPE_OF_GAMES, max_length=255)
 
     def __str__(self):
