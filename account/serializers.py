@@ -12,7 +12,10 @@ class UserSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
-            raise serializers.ValidationError("Passwords are not same !!!")
+            raise serializers.ValidationError({"password": "Passwords are not same !!!"})
+        # Check Email Should be unique
+        elif User.objects.filter(email=attrs['email']).exists():
+            raise serializers.ValidationError({"email": "this email already exist !!!"})
         return attrs
 
     def create(self, validated_data):
