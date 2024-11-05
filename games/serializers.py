@@ -31,3 +31,14 @@ class GameOfUserSerializer(serializers.ModelSerializer):
         )
         games_of_users.save()
         return {"Message": "Your Score And Your Game Saved"}
+
+
+class UpdateGameScoreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GamesOfUsers
+        fields = ('score',)
+
+    def update(self, instance, validated_data):
+        instance.score = validated_data.get('score', instance.score)
+        instance.save()
+        return instance
